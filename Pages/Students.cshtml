@@ -1,0 +1,48 @@
+﻿@page "{handler?}/{studentId:int?}"
+@model MyApp.Namespace.StudentsModel
+@{
+    ViewData["Title"] = "All Students";
+}
+
+<h1>All Students</h1>
+
+<table class="table">
+    <tr>
+        <td>#</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Age</td>
+        <td>Gender</td>
+        <td>Courses</td>
+        <td>Nationality</td>
+        <td>Action</td>
+        <td></td>
+    </tr>
+    @foreach (var student in Model.students)
+    {
+        <tr>
+            <td>@student.StudentId</td>
+            <td>@student.Name</td>
+            <td>@student.Email</td>
+            <td>@student.Age</td>
+            <td>@student.Gender</td>
+            <td>
+                @if (student.Courses.Count() == 0)
+                {
+                    <pre>No courses selected</pre>
+                }
+                @foreach (var course in student.Courses)
+                {
+                    <p>@course.Name</p>
+                }
+            </td>
+            <td>@student.Nationality.Name</td>
+            <td style="display: flex; gap: 8px;">
+                <form method="POST">
+                    <button asp-page-handler="Delete" asp-route-studentId="@student.StudentId" class="btnAction">Delete</button>
+                </form>
+                <a asp-page="/NewStudents" asp-page-handler="Edit" asp-route-studentId="@student.StudentId" class="btnAction">Edit</a>
+            </td>
+        </tr>
+    }
+</table>

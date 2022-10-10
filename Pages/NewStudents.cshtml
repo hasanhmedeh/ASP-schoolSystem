@@ -1,0 +1,91 @@
+﻿@page "{handler?}/{studentId:int?}"
+@model MyApp.Namespace.NewStudentsModel
+@{
+    @if(Model.st != null){
+        ViewData["Title"] = "Edit Student";
+    } else {
+        ViewData["Title"] = "Add Student";
+    }
+    
+}
+
+@if(Model.st != null){
+    <h2>Edit Student</h2>
+} else {
+    <h2>Add New Student</h2>
+}
+
+
+<form method="POST">
+    <div class="form-group">
+        <label asp-for="Input.studentName"></label>
+        <input class="form-control" asp-for="Input.studentName" value="@Model.st?.Name">
+    </div><br>
+
+    <div class="form-group">
+        <label asp-for="Input.studentEmail"></label>
+        <input class="form-control" asp-for="Input.studentEmail" value="@Model.st?.Email">
+    </div><br>
+
+    <div class="form-group">
+        <label asp-for="Input.confirmEmail"></label>
+        <input class="form-control" asp-for="Input.confirmEmail" value="@Model.st?.Email">
+    </div><br>
+
+    <div class="form-group">
+        <label asp-for="Input.studentAge"></label>
+        <input class="form-control" asp-for="Input.studentAge" value="@Model.st?.Age">
+    </div><br>
+
+    @if(Model.st != null){
+        @if(Model.st.Gender == "male"){
+            <label class="form-check-label" asp-for="Input.studentGender"></label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Input.studentGender" value="male" checked>
+                <label for="">Male</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Input.studentGender" value="female">
+                <label for="">Female</label>
+            </div><br>
+        } else {
+            <label class="form-check-label" asp-for="Input.studentGender"></label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Input.studentGender" value="male">
+                <label for="">Male</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Input.studentGender" value="female" checked>
+                <label for="">Female</label>
+            </div><br>
+        }
+    } else {
+        <label class="form-check-label" asp-for="Input.studentGender"></label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" asp-for="Input.studentGender" value="male">
+            <label for="">Male</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" asp-for="Input.studentGender" value="female">
+            <label for="">Female</label>
+        </div><br>
+    }
+    
+
+    <div class="form-group">
+        <label asp-for="Input.CoursesIds"></label>
+        <select class="form-control" asp-items="Model.courses" asp-for="Input.CoursesIds" multiple></select>
+    </div><br>
+
+    <div class="form-group">
+        <label asp-for="Input.NationalityId"></label>
+        <select class="form-control" asp-items="Model.nationalities" asp-for="Input.NationalityId" ></select>
+    </div><br><br>
+
+    @if(Model.st != null){
+        <button asp-page-handler="Update" asp-route-studentId="@Model.st.StudentId" type="submit" class="btn btn-primary">Update Student</button>
+    } else {
+        <button asp-page-handler="Create" type="submit" class="btn btn-primary">Add Student</button>
+    }
+    
+</form>
