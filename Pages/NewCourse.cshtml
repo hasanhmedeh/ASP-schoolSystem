@@ -1,0 +1,20 @@
+﻿@page "{handler?}"
+@model MyApp.Namespace.NewCourseModel
+@{
+    ViewData["Title"] = "Add Course";
+}
+
+<h2>Add Course</h2>
+
+<form method="POST">
+    <div class="form-group">
+        <label asp-for="Input.courseName"></label>
+        <input class="form-control" asp-for="Input.courseName">
+        <span style="color:red;" asp-validation-for="Input.courseName"></span>
+    </div><br><br>
+
+    
+    <button asp-page-handler="Create" type="submit" class="btn btn-primary">Add Course</button>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</form>

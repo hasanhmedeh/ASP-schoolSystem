@@ -19,11 +19,11 @@ body {
 
 .btnAction{
   border: transparent;
-  background-color: aqua;
   padding: 5px;
   border-radius: 7px;
   display: flex;
   gap: 3px;
   display: inline;
-  text-decoration: none;
+  /* text-decoration: none;
+  color: black; */
 }

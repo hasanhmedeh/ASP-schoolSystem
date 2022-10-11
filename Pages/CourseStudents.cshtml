@@ -1,0 +1,29 @@
+﻿@page "{courseId:int}"
+@model MyApp.Namespace.CourseStudentsModel
+@{
+    ViewData["Title"] = @Model.courseInfo.Name+" Students";
+}
+
+<h1>All Students Registered for @Model.courseInfo.Name</h1>
+
+<table class="table">
+    <tr>
+        <td>#</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Age</td>
+        <td>Gender</td>
+        <td>Nationality</td>
+    </tr>
+    @foreach (var student in Model.students)
+    {
+        <tr>
+            <td>@student.StudentId</td>
+            <td>@student.Name</td>
+            <td>@student.Email</td>
+            <td>@student.Age</td>
+            <td>@student.Gender</td>
+            <td>@student.Nationality.Name</td>
+        </tr>
+    }
+</table>

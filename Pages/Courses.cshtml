@@ -1,0 +1,25 @@
+﻿@page
+@model MyApp.Namespace.CoursesModel
+@{
+    ViewData["Title"] = "All Courses";
+}
+
+
+<h1>All Courses</h1>
+
+<table class="table">
+    <tr>
+        <td>#</td>
+        <td>Name</td>
+        <td>Action</td>
+        <td></td>
+    </tr>
+    @foreach (var course in Model.courses)
+    {
+        <tr>
+            <td>@course.CourseId</td>
+            <td>@course.Name</td>
+            <td><a asp-page="/CourseStudents" asp-route-courseId="@course.CourseId" class="btnAction">show students registered</a></td>
+        </tr>
+    }
+</table>

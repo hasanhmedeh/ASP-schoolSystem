@@ -178,13 +178,43 @@ namespace school.services
                st.Courses.Add(_context.Course.Where(n => n.CourseId == Course).Select(n => n).Single());
 
             }
-            
-
 
             _context.SaveChanges();
             return st;
+        }
 
+        public void createCourse(CourseBinding course){
+            Course newCourse = new Course{
+                Name = course.courseName
+            };
 
+            _context.Add(newCourse);
+            _context.SaveChanges();
+        }
+        
+        public List<Course> getAllCourses(){
+            return _context.Course.Where(n=>n.IsDeleted!=1).ToList();
+        }
+
+        public List<Student> getStudentForCourse(int id){
+            Course course = _context.Course.Where(n=>n.IsDeleted!=1).Where(n=>n.CourseId == id).Include(c=>c.Students).Single();
+            var students = course.Students.ToList();
+            List<Student> students1 = new List<Student>();
+            foreach (var student in students)
+            {
+                Console.WriteLine(student.IsDeleted);
+                var std = _context.Student.Where(s=>s.StudentId == student.StudentId).Include(s=>s.Nationality).Single();
+                if(std.IsDeleted == 0){
+                    students1.Add(std);
+                }
+            }
+            return students1;
+        }
+
+        public Course getCourseById(int id){
+            return _context.Course.Where(n=>n.IsDeleted!=1).Where(n=>n.CourseId == id).Include(c=>c.Students).Single();
         }
     }
+
+    
 }
